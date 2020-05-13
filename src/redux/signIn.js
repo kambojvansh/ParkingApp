@@ -11,7 +11,8 @@ import {
     ActivityIndicator,
     Modal,
     BackHandler,
-    Image
+    Image,
+    Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -25,8 +26,8 @@ import {
     emailChanged,
     passwordChanged,
     logInUser,
-    onLoginOrRegisterGoogle,
-    onLoginOrRegisterFacebook
+    ErremailChanged,
+    ErrpasswordChanged,
 } from "./actions"
 import Loading from "./components/loading"
 import firebase from 'react-native-firebase'
@@ -37,12 +38,24 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 
 
 export class SignIn extends Component {
+    // constructor() {
+    //     super()
+    //     this.onSubmitEmail = this.onSubmitEmail.bind(this);
+    //     // this.onSubmitLastName = this.onSubmitPassword.bind(this);
+    // }
+    // onSubmitEmail() {
+    //     this.password.focus();
+    // }
+
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
             (user ? Actions.deshboard() : null)
         })
+        BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
     }
-
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+    }
     onEmailchanged(text) {
         this.props.emailChanged(text)
 
@@ -63,6 +76,20 @@ export class SignIn extends Component {
 
     // }
 
+    onBackPress = () => {
+        Alert.alert(
+            'Exit',
+            'Are you sure?',
+            [
+                { text: 'Yes', onPress: () => BackHandler.exitApp() },
+                { text: 'No', onPress: () => console.log('User not exit'), style: 'cancel' },
+            ],
+            {
+                cancelable: true
+            }
+        );
+        return true;
+    }
     render() {
 
 
@@ -73,11 +100,14 @@ export class SignIn extends Component {
                     <View
                         style={{
                             // flex: 1,
-                            backgroundColor: 'white',
+                            // backgroundColor: 'white',
                             height: screenHeight,
                             // marginVertical: 30,
                             justifyContent: 'center',
                             alignItems: 'center',
+                            backgroundColor: 'pink',
+                            borderBottomLeftRadius: screenWidth / 1.2,
+                            borderTopRightRadius: screenWidth / 1.2,
                         }}
                     >
                         <Image
@@ -91,7 +121,35 @@ export class SignIn extends Component {
                             <View style={{
                                 width: screenWidth / 1.5
                             }}>
-                                <FilledTextField
+                                <TextField
+                                    ref={this.email}
+                                    value={this.props.email}
+                                    autoCorrect={false}
+                                    enablesReturnKeyAutomatically={true}
+                                    onFocus={this.onFocus}
+                                    onChangeText={this.onEmailchanged.bind(this)}
+                                    // onSubmitEditing={this.onSubmitEmail}
+                                    returnKeyType='next'
+                                    label='example@gmail.com'
+                                    keyboardType='email-address'
+                                    error={this.props.errEmail}
+                                />
+                                <TextField
+                                    ref={this.password}
+                                    value={this.props.pass}
+                                    autoCorrect={false}
+                                    enablesReturnKeyAutomatically={true}
+                                    onFocus={this.onFocus}
+                                    onChangeText={this.onPasswordChanged.bind(this)}
+                                    // onSubmitEditing={this.email}
+                                    returnKeyType='next'
+                                    title="Minimum 6 characters"
+                                    label='Password'
+                                    keyboardType='name-phone-pad'
+                                    secureTextEntry={true}
+                                    error={this.props.errPass}
+                                />
+                                {/* <FilledTextField
                                     label='example@gmail.com'
                                     keyboardType='email-address'
                                     lineType='none'
@@ -111,8 +169,8 @@ export class SignIn extends Component {
                                 // onSubmitEditing={this.onSubmit}
                                 // ref={this.fieldRef}
                                 >
-                                </FilledTextField>
-                                <FilledTextField
+                                </FilledTextField> */}
+                                {/* <FilledTextField
                                     label='Password'
                                     keyboardType='name-phone-pad'
                                     lineType='none'
@@ -131,7 +189,7 @@ export class SignIn extends Component {
                                     secureTextEntry={true}
                                     title="Minimum 6 characters"
                                 >
-                                </FilledTextField>
+                                </FilledTextField> */}
                             </View>
 
                             <TouchableOpacity
@@ -139,7 +197,16 @@ export class SignIn extends Component {
                                 onPress={() => {
                                     // if (this.props.email == "" && this.props.pass == "")
                                     //     return
-                                    this.buttonPressed()
+
+                                    if (this.props.email !== '' && this.props.pass !== '') {
+                                        this.buttonPressed()
+                                    }
+                                    else if (this.props.email == '') {
+                                        this.props.ErremailChanged("Please Enter Email")
+                                    }
+                                    else if (this.props.pass == '') {
+                                        this.props.ErrpasswordChanged("Plaese Enater password")
+                                    }
 
                                 }
                                 }
@@ -243,13 +310,15 @@ const mapStateTOProps = state => {
         email: state.auth.email,
         pass: state.auth.pass,
         isLoading: state.auth.isLoading,
-        isLogin: state.auth.isLogin
+        isLogin: state.auth.isLogin,
+        errEmail: state.auth.errEmail,
+        errPass: state.auth.errPass
     }
 }
 export default connect(mapStateTOProps, {
     emailChanged,
     passwordChanged,
     logInUser,
-    onLoginOrRegisterGoogle,
-    onLoginOrRegisterFacebook
+    ErremailChanged,
+    ErrpasswordChanged,
 })(SignIn)

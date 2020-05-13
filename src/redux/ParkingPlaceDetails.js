@@ -29,9 +29,15 @@ import {
     feeChanged,
     slotChnged,
     addressChanged,
-    addNewAdmin,
     passwordChanged,
-    signUpUser
+    signUpUser,
+    ErremailChanged,
+    ErrnameChanged,
+    ErrnumberChanged,
+    ErrfeeChanged,
+    ErrslotChnged,
+    ErraddressChanged,
+    ErrpasswordChanged,
 } from "./actions"
 import Loading from "./components/loading"
 import firebase from 'react-native-firebase'
@@ -48,6 +54,15 @@ export const Place = () => {
     const fee = useSelector(state => state.auth.fee)
     const email = useSelector(state => state.auth.email)
     const pass = useSelector(state => state.auth.pass)
+
+    const errEmail = useSelector(state => state.auth.errEmail)
+    const errPass = useSelector(state => state.auth.errPass)
+    const errName = useSelector(state => state.auth.errName)
+    const errPhone = useSelector(state => state.auth.errPhone)
+    const errAdd = useSelector(state => state.auth.errAdd)
+    const errSlot = useSelector(state => state.auth.errSlot)
+    const errFee = useSelector(state => state.auth.errFee)
+
     const dispatch = useDispatch()
 
 
@@ -87,24 +102,28 @@ export const Place = () => {
 
     return (
 
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <KeyboardAwareScrollView>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false} >
+            <KeyboardAwareScrollView >
+
+
 
                 <View
                     style={{
                         flex: 1,
-                        backgroundColor: 'white',
-                        height: screenHeight,
+                        // backgroundColor: 'white',
+                        // height: screenHeight,
                         // marginVertical: 30,
                         justifyContent: 'center',
                         alignItems: 'center',
-                        // backgroundColor: 'pink'
+                        backgroundColor: 'pink',
+                        borderBottomLeftRadius: screenWidth / 1.2,
+                        borderTopRightRadius: screenWidth / 1.2,
                     }}
                 >
-                    {/* <Image
+                    <Image
                         source={require('../../images/appicon.png')}
                         style={styles.img}
-                    /> */}
+                    />
 
 
                     <View style={{
@@ -119,28 +138,61 @@ export const Place = () => {
 
                             {/* <ScrollView style={{ height: screenHeight / 2 }}> */}
 
-                            <FilledTextField
-                                label='example@example.com'
+
+                            <TextField
+                                // ref={this.email}
+                                // value={this.props.email}
+                                autoCorrect={false}
+                                enablesReturnKeyAutomatically={true}
+                                // onFocus={this.onFocus}
+                                // onChangeText={this.onEmailchanged.bind(this)}
+                                // onSubmitEditing={this.onSubmitEmail}
+                                returnKeyType='next'
+                                label='example@gmail.com'
                                 keyboardType='email-address'
-                                lineType='none'
                                 onChangeText={(email) => onEmailchanged(email)}
                                 value={email}
-                                inputContainerStyle={{
-                                    borderBottomLeftRadius: 10,
-                                    borderBottomRightRadius: 10,
-                                    borderTopLeftRadius: 10,
-                                    borderTopRightRadius: 10,
-                                    borderWidth: 1,
-                                    borderColor: "lightgray",
-                                    backgroundColor: 'white'
-                                }}
-                                labelTextStyle={{ textAlign: 'center', }}
-                            >
-                            </FilledTextField>
-                            <FilledTextField
+                                error={errEmail}
+                            />
+                            {/* <TextField
+                                label='example@example.com'
+                                keyboardType='email-address'
+                                // lineType='none'
+                                onChangeText={(email) => onEmailchanged(email)}
+                                value={email}
+                                // inputContainerStyle={{
+                                //     borderBottomLeftRadius: 10,
+                                //     borderBottomRightRadius: 10,
+                                //     borderTopLeftRadius: 10,
+                                //     borderTopRightRadius: 10,
+                                //     borderWidth: 1,
+                                //     borderColor: "lightgray",
+                                //     backgroundColor: 'white'
+                                // }}
+                                labelTextStyle={{ textAlign: 'center' }}
+                            /> */}
+                            {/* </FilledTextField> */}
+
+                            <TextField
+                                // ref={this.email}
+                                // value={this.props.email}
+                                autoCorrect={false}
+                                enablesReturnKeyAutomatically={true}
+                                // onFocus={this.onFocus}
+                                // onChangeText={this.onEmailchanged.bind(this)}
+                                // onSubmitEditing={this.onSubmitEmail}
+                                returnKeyType='next'
                                 label='Password'
                                 keyboardType='name-phone-pad'
-                                lineType='none'
+                                onChangeText={(pass) => onPasswordChanged(pass)}
+                                value={pass}
+                                secureTextEntry={true}
+                                title="Minimum 6 characters"
+                                error={errPass}
+                            />
+                            {/* <FilledTextField
+                                label='Password'
+                                keyboardType='name-phone-pad'
                                 onChangeText={(pass) => onPasswordChanged(pass)}
                                 value={pass}
                                 inputContainerStyle={{
@@ -156,11 +208,26 @@ export const Place = () => {
                                 secureTextEntry={true}
                                 title="Minimum 6 characters"
                             >
-                            </FilledTextField>
-                            <FilledTextField
+                            </FilledTextField> */}
+
+                            <TextField
+                                // ref={this.email}
+                                // value={this.props.email}
+                                autoCorrect={false}
+                                enablesReturnKeyAutomatically={true}
+                                // onFocus={this.onFocus}
+                                // onChangeText={this.onEmailchanged.bind(this)}
+                                // onSubmitEditing={this.onSubmitEmail}
+                                returnKeyType='next'
                                 label='Full Name'
                                 keyboardType='name-phone-pad'
-                                lineType='none'
+                                onChangeText={(name) => onNameChanged(name)}
+                                value={name}
+                                error={errName}
+                            />
+                            {/* <FilledTextField
+                                label='Full Name'
+                                keyboardType='name-phone-pad'
                                 onChangeText={(name) => onNameChanged(name)}
                                 value={name}
                                 inputContainerStyle={{
@@ -177,11 +244,26 @@ export const Place = () => {
                             // onSubmitEditing={this.onSubmit}
                             // ref={this.fieldRef}
                             >
-                            </FilledTextField>
-                            <FilledTextField
+                            </FilledTextField> */}
+
+                            <TextField
+                                // ref={this.email}
+                                // value={this.props.email}
+                                autoCorrect={false}
+                                enablesReturnKeyAutomatically={true}
+                                // onFocus={this.onFocus}
+                                // onChangeText={this.onEmailchanged.bind(this)}
+                                // onSubmitEditing={this.onSubmitEmail}
+                                returnKeyType='next'
                                 label='Phone Number'
                                 keyboardType='number-pad'
-                                lineType='none'
+                                onChangeText={(num) => onNumberChanged(num)}
+                                value={number}
+                                error={errPhone}
+                            />
+                            {/* <FilledTextField
+                                label='Phone Number'
+                                keyboardType='number-pad'
                                 onChangeText={(num) => onNumberChanged(num)}
                                 value={number}
                                 inputContainerStyle={{
@@ -197,9 +279,25 @@ export const Place = () => {
                             // secureTextEntry={true}
                             // title="Minimum 6 characters"
                             >
-                            </FilledTextField>
+                            </FilledTextField> */}
 
-                            <FilledTextField
+                            <TextField
+                                // ref={this.email}
+                                // value={this.props.email}
+                                autoCorrect={false}
+                                enablesReturnKeyAutomatically={true}
+                                // onFocus={this.onFocus}
+                                // onChangeText={this.onEmailchanged.bind(this)}
+                                // onSubmitEditing={this.onSubmitEmail}
+                                returnKeyType='next'
+                                label=' Parking Address'
+                                keyboardType='name-phone-pad'
+                                onChangeText={(add) => onParkingAddressChanged(add)}
+                                value={add}
+                                error={errAdd}
+                            />
+
+                            {/* <FilledTextField
                                 label=' Parking Address'
                                 keyboardType='name-phone-pad'
                                 lineType='none'
@@ -218,9 +316,26 @@ export const Place = () => {
                             // secureTextEntry={true}
                             // title="Minimum 6 characters"
                             >
-                            </FilledTextField>
+                            </FilledTextField> */}
 
-                            <FilledTextField
+
+                            <TextField
+                                // ref={this.email}
+                                // value={this.props.email}
+                                autoCorrect={false}
+                                enablesReturnKeyAutomatically={true}
+                                // onFocus={this.onFocus}
+                                // onChangeText={this.onEmailchanged.bind(this)}
+                                // onSubmitEditing={this.onSubmitEmail}
+                                returnKeyType='next'
+                                label='Total Slots'
+                                keyboardType='number-pad'
+                                onChangeText={(slot) => onParkingSloteChanged(slot)}
+                                value={slot}
+                                title="Enter here how many parking slots you have"
+                                error={errSlot}
+                            />
+                            {/* <FilledTextField
                                 label='Total Slots'
                                 keyboardType='number-pad'
                                 lineType='none'
@@ -239,8 +354,24 @@ export const Place = () => {
                                 // secureTextEntry={true}
                                 title="Enter here how many parking slots you have"
                             >
-                            </FilledTextField>
-                            <FilledTextField
+                            </FilledTextField> */}
+
+                            <TextField
+                                // ref={this.email}
+                                // value={this.props.email}
+                                autoCorrect={false}
+                                enablesReturnKeyAutomatically={true}
+                                // onFocus={this.onFocus}
+                                // onChangeText={this.onEmailchanged.bind(this)}
+                                // onSubmitEditing={this.onSubmitEmail}
+                                returnKeyType='next'
+                                label='Parking Fee'
+                                keyboardType='number-pad'
+                                onChangeText={(fee) => onParkingFeeChanged(fee)}
+                                value={fee}
+                                error={errFee}
+                            />
+                            {/* <FilledTextField
                                 label='Parking Fee'
                                 keyboardType='number-pad'
                                 lineType='none'
@@ -259,7 +390,7 @@ export const Place = () => {
                             // secureTextEntry={true}
                             // title="In indain rupee"
                             >
-                            </FilledTextField>
+                            </FilledTextField> */}
 
 
 
@@ -271,7 +402,31 @@ export const Place = () => {
                         <TouchableOpacity
                             style={styles.btn}
                             onPress={() => {
-                                onButtonPressed(email, pass, name, number, add, slot, fee)
+                                if (email !== '' && pass !== '' && name !== '' && number !== '' && add !== '' && slot !== '' && fee !== '') {
+                                    onButtonPressed(email, pass, name, number, add, slot, fee)
+                                }
+                                else if (email == '') {
+                                    dispatch(ErremailChanged("Please Enter Email"))
+                                }
+                                else if (pass == '') {
+                                    dispatch(ErrpasswordChanged("Plaese Enater password"))
+                                }
+                                else if (name == '') {
+                                    dispatch(ErrnameChanged("Please Enter Name"))
+                                }
+                                else if (number == '') {
+                                    dispatch(ErrnumberChanged("Please Enter Number"))
+                                }
+                                else if (add == '') {
+                                    dispatch(ErraddressChanged("Please Enter Address"))
+                                }
+                                else if (slot == '') {
+                                    dispatch(ErrslotChnged("Please Enter Slot"))
+                                }
+                                else if (fee == '') {
+                                    dispatch(ErrfeeChanged("Please Enter Fee"))
+                                }
+
                             }
                             }
                         >
@@ -286,13 +441,12 @@ export const Place = () => {
                         </TouchableOpacity>
 
                     </View>
-                    <View>
-                        {isLoading ? <Loading /> : null}
+                    {/* <View>
+                            {isLoading ? <Loading /> : null}
 
-                    </View>
+                        </View> */}
 
                 </View>
-
 
             </KeyboardAwareScrollView>
             {/* </ScrollView> */}

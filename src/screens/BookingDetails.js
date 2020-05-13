@@ -149,10 +149,10 @@ class Bookingdeatils extends Component {
 
                 </View>
 
-                <View>
+                {/* <View>
                     {this.props.isLoading ? <Loading /> : null}
 
-                </View>
+                </View> */}
 
 
 

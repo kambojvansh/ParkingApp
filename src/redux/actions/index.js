@@ -11,7 +11,14 @@ import {
     MODELSHOW,
     ADDRESS_CHANGED,
     FEE_CHANGED,
-    SLOT_CHANGED
+    SLOT_CHANGED,
+    errEmail_CHANGED,
+    errAdd_CHANGED,
+    errFee_CHANGED,
+    errName_CHANGED,
+    errPass_CHANGED,
+    errPhone_CHANGED,
+    errSlot_CHANGED
 } from "./types"
 import firebase from 'react-native-firebase'
 import { Actions } from 'react-native-router-flux'
@@ -24,13 +31,7 @@ export const emailChanged = (text) => {
         payload: text
     }
 }
-// export const nameChanged = (text) => {
-//     return {
-//         type: NAME_CHANGED,
-//         payload: text
-//     }
-//     // alert(text)
-// }
+
 export const passwordChanged = (text) => {
     return {
         type: PASSWORD_CHANGED,
@@ -67,6 +68,51 @@ export const feeChanged = (text) => {
         payload: text
     }
 }
+
+export const ErremailChanged = (text) => {
+    return {
+        type: errEmail_CHANGED,
+        payload: text
+    }
+}
+
+export const ErrpasswordChanged = (text) => {
+    return {
+        type: errPass_CHANGED,
+        payload: text
+    }
+}
+export const ErrnameChanged = (text) => {
+    return {
+        type: errName_CHANGED,
+        payload: text
+    }
+}
+export const ErrnumberChanged = (text) => {
+    return {
+        type: errPhone_CHANGED,
+        payload: text
+    }
+}
+export const ErraddressChanged = (text) => {
+    return {
+        type: errAdd_CHANGED,
+        payload: text
+    }
+}
+export const ErrslotChnged = (text) => {
+    return {
+        type: errSlot_CHANGED,
+        payload: text
+    }
+}
+export const ErrfeeChanged = (text) => {
+    return {
+        type: errFee_CHANGED,
+        payload: text
+    }
+}
+
 export const signOut = () => {
     return (dispatch) => {
         dispatch({ type: LOADING, payload: true })
@@ -76,7 +122,7 @@ export const signOut = () => {
             .then(() => {
                 dispatch({ type: LOADING, payload: false })
                 // dispatch({ type: 'success' })
-                Actions.auth()
+                Actions.login()
             })
             .catch(error => {
                 alert(error)

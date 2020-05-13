@@ -279,10 +279,10 @@ class Deshboard extends Component {
                 >
 
                 </FlatList>
-                <View>
+                {/* <View>
                     {this.props.isLoading ? <Loading /> : null}
 
-                </View>
+                </View> */}
                 {/* </ScrollView> */}
 
 

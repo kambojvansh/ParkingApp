@@ -105,11 +105,14 @@ export class signUp extends Component {
                     <View
                         style={{
                             // flex: 1,
-                            backgroundColor: 'white',
+                            // backgroundColor: 'white',
                             height: screenHeight,
                             // marginVertical: 30,
                             justifyContent: 'center',
                             alignItems: 'center',
+                            backgroundColor: 'pink',
+                            borderBottomLeftRadius: screenWidth / 1.2,
+                            borderTopRightRadius: screenWidth / 1.2,
                         }}
                     >
 
