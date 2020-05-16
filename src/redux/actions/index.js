@@ -18,7 +18,8 @@ import {
     errName_CHANGED,
     errPass_CHANGED,
     errPhone_CHANGED,
-    errSlot_CHANGED
+    errSlot_CHANGED,
+    FIREBASE_TOKEN
 } from "./types"
 import firebase from 'react-native-firebase'
 import { Actions } from 'react-native-router-flux'
@@ -153,7 +154,7 @@ export const logInUser = (email, password) => {
 
 
 }
-export const signUpUser = (email, password, name, number, address, slot, fee) => {
+export const signUpUser = (email, password, name, number, address, slot, fee, token) => {
     return (dispatch) => {
         dispatch({ type: LOADING, payload: true })
         firebase
@@ -175,7 +176,8 @@ export const signUpUser = (email, password, name, number, address, slot, fee) =>
                     ParkingAddress: address,
                     Slot: slot,
                     ParkingFee: fee,
-                    uid: firebase.auth().currentUser.uid
+                    uid: firebase.auth().currentUser.uid,
+                    firebaseToken: token
                 })
                     .then(() => {
                         // dispatch({ type: LOADING, payload: false })
@@ -190,7 +192,8 @@ export const signUpUser = (email, password, name, number, address, slot, fee) =>
                                 createdAt: new Date().getTime(),
                                 SlotNumber: "Slot Number " + i,
                                 Status: false,
-                                BookingId: Math.floor(100000 + Math.random() * 900000)
+                                BookingId: Math.floor(100000 + Math.random() * 900000),
+                                firebaseToken: token
                                 // uid: firebase.auth().currentUser.uid
                             })
 
@@ -297,6 +300,16 @@ export const loading = (task) => {
     return {
         type: 'loadingShow',
         payload: task
+    }
+}
+
+
+export const AddFirebaseToken = (token) => {
+    // alert(token)
+    // console.log(token)
+    return {
+        type: FIREBASE_TOKEN,
+        payload: token
     }
 }
 

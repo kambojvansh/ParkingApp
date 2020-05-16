@@ -7,7 +7,8 @@ buildscript {
         compileSdkVersion = 28
         targetSdkVersion = 28
         androidMapsUtilsVersion = "0.5+"
-        googlePlayServicesAuthVersion = "16.0.1"
+        googlePlayServicesVersion = "+" // default: "+"
+        firebaseVersion = "+" // default: "+"
     }
     repositories {
         google()

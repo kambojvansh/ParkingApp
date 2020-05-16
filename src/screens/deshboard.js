@@ -122,7 +122,7 @@ class Deshboard extends Component {
         // this.props.countOfNotesNotCompleted(userArr)
         return (
 
-            <View style={{ flex: 1, backgroundColor: 'lightgray' }}>
+            <View style={{ flex: 1, backgroundColor: '#45a0e6' }}>
                 {/* for top option bar */}
 
 
@@ -198,7 +198,7 @@ class Deshboard extends Component {
 
 
                 <FlatList
-                    style={{ backgroundColor: 'gray', marginTop: 2 }}
+                    style={{ backgroundColor: '#45a0e6', marginTop: 2, alignSelf: 'center' }}
                     data={userArr}
                     numColumns={2}
                     renderItem={({ item, index }) => {
@@ -206,22 +206,34 @@ class Deshboard extends Component {
                             <View style={{
                                 marginTop: 2,
                                 // flexDirection: 'row',
+                                // justifyContent: 'center',
+                                alignItems: 'center',
+                                // alignSelf: 'center'
                             }}>
                                 <View style={{
                                     flex: 1,
                                     backgroundColor: 'white',
-                                    marginRight: 1,
-                                    justifyContent: 'center'
+                                    margin: 10,
+                                    justifyContent: 'center',
+                                    borderBottomLeftRadius: 30,
+                                    borderBottomRightRadius: 30,
+                                    borderTopLeftRadius: 30,
+                                    borderTopRightRadius: 30,
                                 }}>
                                     <View
                                         // style={{ marginLeft: 30, padding: 10, marginBottom: 10 }}
-                                        style={{ width: screenWidth / 2 }}
+                                        style={{
+                                            width: screenWidth / 2.5,
+                                        }}
                                     >
                                         <TouchableOpacity
+                                            style={{
+
+                                            }}
                                             onPress={() => {
                                                 // this.buttonClickded(item.BookingId, item.key)
                                                 // this.props.modalShow(true)
-                                                // console.log(item)
+                                                console.log(this.props.Token)
                                                 Actions.booking({
                                                     Key: item.key,
                                                     bookingId: item.BookingId,
@@ -356,7 +368,8 @@ const mapStateTOProps = state => {
         userArr: state.auth.userArr,
         count: state.auth.count,
         bookings: state.auth.bookings,
-        modelVisible: state.auth.ModelVisible
+        modelVisible: state.auth.ModelVisible,
+        Token: state.auth.firbaseToken,
     }
 }
 

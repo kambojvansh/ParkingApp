@@ -20,6 +20,7 @@ import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 // import io.invertase.firebase.RNFirebasePackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
+// import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;  // <--- Import Package 
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -40,7 +41,7 @@ public class MainApplication extends Application implements ReactApplication {
           packages.add(new RNFirebaseAuthPackage());
           packages.add(new RNFirebaseFirestorePackage());
           packages.add(new RNFirebaseStoragePackage());
-          // packages.add(new RNGoogleSigninPackage());
+          // packages.add(new ReactNativePushNotificationPackage());
           // packages.add(new MapsPackage());
           // packages.add(new AsyncStoragePackage());
           return packages;

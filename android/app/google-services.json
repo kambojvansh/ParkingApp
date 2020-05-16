@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "362234962280-viabio4a1ns89vh9m5jh29lkqq39e6ld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.parking.admin",
+            "certificate_hash": "b4ff868e608e52996a40fd555e479bf4b764fe0a"
+          }
+        },
+        {
           "client_id": "362234962280-u53kgoju950kcsl0g7tc8fi93c7sd785.apps.googleusercontent.com",
           "client_type": 3
         }

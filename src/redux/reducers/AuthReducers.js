@@ -22,7 +22,8 @@ import {
     errName_CHANGED,
     errPass_CHANGED,
     errPhone_CHANGED,
-    errSlot_CHANGED
+    errSlot_CHANGED,
+    FIREBASE_TOKEN
 } from '../actions/types'
 const INITIAL_STATE = {
     email: '',
@@ -49,7 +50,8 @@ const INITIAL_STATE = {
     errPhone: '',
     errAdd: '',
     errSlot: '',
-    errFee: ''
+    errFee: '',
+    firbaseToken: null
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -72,6 +74,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, slot: action.payload, errSlot: '' }
         case FEE_CHANGED:
             return { ...state, fee: action.payload, errFee: '' }
+        case FIREBASE_TOKEN:
+            return { ...state, firbaseToken: action.payload }
         case LOGIN_USER_SUCCESS:
             return {
                 ...state,

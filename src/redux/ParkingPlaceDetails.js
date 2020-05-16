@@ -54,6 +54,7 @@ export const Place = () => {
     const fee = useSelector(state => state.auth.fee)
     const email = useSelector(state => state.auth.email)
     const pass = useSelector(state => state.auth.pass)
+    const Token = useSelector(state => state.auth.firbaseToken)
 
     const errEmail = useSelector(state => state.auth.errEmail)
     const errPass = useSelector(state => state.auth.errPass)
@@ -85,8 +86,8 @@ export const Place = () => {
     const onParkingSloteChanged = (slot) => {
         dispatch(slotChnged(slot))
     }
-    const onButtonPressed = (email, pass, name, number, add, slot, fee) => {
-        dispatch(signUpUser(email, pass, name, number, add, slot, fee))
+    const onButtonPressed = (email, pass, name, number, add, slot, fee, token) => {
+        dispatch(signUpUser(email, pass, name, number, add, slot, fee, token))
         // dispatch(addNewAdmin(name, number, add, slot, fee))
     }
     const onEmailchanged = (text) => {
@@ -403,7 +404,7 @@ export const Place = () => {
                             style={styles.btn}
                             onPress={() => {
                                 if (email !== '' && pass !== '' && name !== '' && number !== '' && add !== '' && slot !== '' && fee !== '') {
-                                    onButtonPressed(email, pass, name, number, add, slot, fee)
+                                    onButtonPressed(email, pass, name, number, add, slot, fee, Token)
                                 }
                                 else if (email == '') {
                                     dispatch(ErremailChanged("Please Enter Email"))

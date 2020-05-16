@@ -50,6 +50,39 @@ class Bookingdeatils extends Component {
             { cancelable: false }
         );
     };
+
+    sendPushNotification = async () => {
+        const FIREBASE_API_KEY = "AAAAVFbi4Wg:APA91bF259EcQyPmRLbuHz2TOsO4m7xoYpDgix0uME9-4EoQuyht_Wm1Y_bsOtBsPq7c9fJLnN0ym_snVYUYA9VpMtF2956Or1C5l_JLC2jKqsJ1eMvZGtRA9qgW5csrxsQP7-EYjJmw";
+        const message = {
+            registration_ids: ["eH2kD_LuPN8:APA91bEfRZrAh5xLe2Nzz6Sse68vwyHvXpoeUNkK0poNQMgpORMOYCfKU0iHo3-fDDTpeTVuxhNKipNW4X1rzXZ5hFoaIcBcrYLTT6sWOHX0pVu-KlJEZ7yPvJgTfk9ES4m4__do2bYR"],
+            notification: {
+                title: "New Booking",
+                body: "One New Booking",
+                "vibrate": 1,
+                "sound": 1,
+                "show_in_foreground": true,
+                "priority": "high",
+                "content_available": true,
+            },
+            data: {
+                title: "india vs south africa test",
+                body: "IND chose to bat",
+                score: 50,
+                wicket: 1
+            }
+        }
+
+        let headers = new Headers({
+            "Content-Type": "application/json",
+            "Authorization": "key=" + FIREBASE_API_KEY
+        });
+
+        let response = await fetch("https://fcm.googleapis.com/fcm/send", { method: "POST", headers, body: JSON.stringify(message) })
+        response = await response.json();
+        console.log(response);
+
+
+    }
     render() {
         // console.log(this.props.Key)
         return (
@@ -142,7 +175,10 @@ class Bookingdeatils extends Component {
                             borderTopLeftRadius: 20,
                             borderTopRightRadius: 20,
                         }}
-                        onPress={() => this.buttonClickded(this.props.Key)}
+                        onPress={() => {
+                            // this.sendPushNotification()
+                            this.buttonClickded(this.props.Key)
+                        }}
                     >
                         <Text style={{ fontSize: 20, alignSelf: 'center', marginVertical: 10 }}>Free Slot</Text>
                     </TouchableOpacity>

@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import Place from './ParkingPlaceDetails'
 import Bookimg from '../screens/BookingDetails'
 import Splash from '../screens/SplashScreen'
+import Home from '../screens/HomeScreen'
 
 const RouerComponent = () => {
     return (
@@ -47,6 +48,10 @@ const RouerComponent = () => {
                         hideNavBar={true}
                         headerLayoutPreset={'center'}
                     />
+                    {/* <Scene key='Desh' component={Deshboard}
+                        hideNavBar={true}
+                        headerLayoutPreset={'center'}
+                    /> */}
                 </Scene>
 
             </Scene>

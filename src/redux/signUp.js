@@ -312,7 +312,8 @@ const mapStateTOProps = state => {
         pass: state.auth.pass,
         isLoading: state.auth.isLoading,
         name: state.auth.name,
-        number: state.auth.number
+        number: state.auth.number,
+        Token: state.auth.firbaseToken,
     }
 }
 

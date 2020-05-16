@@ -9,7 +9,7 @@ import {
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import reducers from './reducers'
-import Login from "../redux/signIn"
+import Pushcontroller from './components/Pushcontroller'
 import Router from "./Router"
 import ReduxThunk from 'redux-thunk'
 const NoteApp = () => {
@@ -17,6 +17,7 @@ const NoteApp = () => {
     return (
         <Provider store={store}>
             <Router />
+            <Pushcontroller />
         </Provider>
     )
 }

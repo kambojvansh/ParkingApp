@@ -11,7 +11,6 @@ export default class SplashScreen extends Component {
             firebase.auth().onAuthStateChanged(user => {
                 (user ? Actions.deshboard() : Actions.login())
             })
-
         }, 5000);
     }
     render() {
